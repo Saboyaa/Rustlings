@@ -1,5 +1,22 @@
 // Calls of this function should be replaced with calls of `string_slice` or `string`.
-fn placeholder() {}
+trait Print {
+    fn descrever(&self);
+}
+impl Print for String {
+    fn descrever(&self){
+        string(self.to_string());
+    }
+}
+impl Print for &str {
+    fn descrever(&self){
+        string_slice(&self);
+    }
+}
+fn placeholder<T:Print>(t:T)
+{
+    t.descrever();
+}
+
 
 fn string_slice(arg: &str) {
     println!("{arg}");
@@ -21,7 +38,7 @@ fn main() {
 
     placeholder("rust is fun!".to_owned());
 
-    placeholder("nice weather".into());
+    // placeholder("nice weather".into());
 
     placeholder(format!("Interpolation {}", "Station"));
 
